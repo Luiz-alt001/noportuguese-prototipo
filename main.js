@@ -1,97 +1,112 @@
-// main.js — NoPortuguese SPA
+/* ═══════════════════════════════════════════════════
+   NO PORTUGUESE IDIOMAS — main.js
+   ═══════════════════════════════════════════════════ */
 
-// ── ROTEAMENTO ──
-const PAGES = ['home','cursos','metodo','sobre','contato'];
+'use strict';
 
-function goTo(page) {
-  PAGES.forEach(p => {
-    const el = document.getElementById('page-' + p);
-    if (el) el.classList.remove('active');
-    const nl = document.getElementById('nl-' + p);
-    if (nl) nl.classList.remove('active');
-  });
-  const target = document.getElementById('page-' + page);
-  if (target) {
-    target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.pushState({ page }, '', '/' + (page === 'home' ? '' : page));
-  }
-  const activeLink = document.getElementById('nl-' + page);
-  if (activeLink) activeLink.classList.add('active');
-  observeReveal();
+/* ── PORTAL TIMER ── */
+let portalTimer = null;
+
+/* ── PAGE ROUTER ── */
+function showPage(name) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+  // Show target
+  const target = document.getElementById('page-' + name);
+  if (!target) return;
+  target.classList.add('active');
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Update nav active state
+  document.querySelectorAll('.nav-links li button').forEach(b => b.classList.remove('active'));
+  const navBtn = document.getElementById('nav-' + name);
+  if (navBtn) navBtn.classList.add('active');
+
+  // Handle portal countdown
+  stopPortalCountdown();
+  if (name === 'portal') startPortalCountdown();
+
+  // Close mobile menu
+  closeMobileMenu();
+
+  // Trigger scroll reveal
+  setTimeout(triggerReveal, 100);
 }
 
-// Roteamento inicial pela URL
-window.addEventListener('DOMContentLoaded', () => {
-  const path = location.pathname.replace('/', '').replace('.html', '') || 'home';
-  const page = PAGES.includes(path) ? path : 'home';
-  goTo(page);
-});
-
-window.addEventListener('popstate', (e) => {
-  if (e.state?.page) goTo(e.state.page);
-});
-
-// ── NAV SCROLL ──
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('nav');
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
-});
-
-// ── MENU MOBILE ──
-function toggleMenu() {
-  const h = document.getElementById('hamburger');
-  const m = document.getElementById('mobileMenu');
-  h.classList.toggle('open');
-  m.classList.toggle('open');
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 
-// ── FAQ ──
-function toggleFaq(el) {
-  const item = el.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
 }
 
-// ── LANG TABS (Cursos) ──
-function setLang(lang, btn) {
-  document.querySelectorAll('.lang-tab').forEach(t => {
-    t.classList.remove('active-en', 'active-es');
-  });
-  btn.classList.add('active-' + lang);
+/* ── LANG TABS (Courses) ── */
+function setLang(lang) {
   document.querySelectorAll('.course-panel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById('panel-' + lang);
+  const panel = document.getElementById('course-' + lang);
   if (panel) panel.classList.add('active');
+
+  const tabEn = document.getElementById('tab-en');
+  const tabEs = document.getElementById('tab-es');
+  if (tabEn) tabEn.className = 'lang-tab' + (lang === 'en' ? ' active-en' : '');
+  if (tabEs) tabEs.className = 'lang-tab' + (lang === 'es' ? ' active-es' : '');
 }
 
-// ── CHECKOUT ──
-function irCheckout() {
-  const select = document.querySelector('.hero-form-col select');
-  const plano  = select?.value?.includes('Básico') ? 'basico' : 'premium';
-  location.href = '/checkout.html?plano=' + plano;
+/* ── PORTAL COUNTDOWN ── */
+function startPortalCountdown() {
+  let elapsed = 0;
+  const total = 3000;
+  const el = document.getElementById('portalCountdown');
+  const bar = document.getElementById('portalBar');
+  if (!el || !bar) return;
+
+  el.textContent = '3';
+  bar.style.width = '0%';
+
+  portalTimer = setInterval(() => {
+    elapsed += 100;
+    bar.style.width = (elapsed / total * 100) + '%';
+    const rem = Math.ceil((total - elapsed) / 1000);
+    el.textContent = rem > 0 ? rem : '0';
+
+    if (elapsed >= total) {
+      clearInterval(portalTimer);
+      window.location.href = '/login.html';
+    }
+  }, 100);
 }
 
-// ── CONTATO ──
-function enviarContato(btn) {
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = 'Mensagem enviada! ✓';
-    btn.style.background = '#22c55e';
-    setTimeout(() => {
-      btn.textContent = 'Enviar mensagem →';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3000);
-  }, 1200);
+function stopPortalCountdown() {
+  if (portalTimer) { clearInterval(portalTimer); portalTimer = null; }
 }
 
-// ── SCROLL REVEAL ──
-function observeReveal() {
-  const els = document.querySelectorAll('.reveal:not(.visible)');
-  if (!els.length) return;
+/* ── FAQ ACCORDION ── */
+function initFAQ() {
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    if (!q) return;
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+}
 
+/* ── SCROLL REVEAL ── */
+function triggerReveal() {
+  const items = document.querySelectorAll('#page-' + getCurrentPage() + ' .reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -99,10 +114,85 @@ function observeReveal() {
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
 
-  els.forEach(el => observer.observe(el));
+  items.forEach(el => observer.observe(el));
 }
 
-// Inicia o reveal
-observeReveal();
+function getCurrentPage() {
+  const active = document.querySelector('.page.active');
+  return active ? active.id.replace('page-', '') : 'home';
+}
+
+/* ── NAV SCROLL SHADOW ── */
+function initNavScroll() {
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    if (!nav) return;
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+}
+
+/* ── SMOOTH HOVER IMAGE CDN ── */
+function initImageFallback() {
+  document.querySelectorAll('img[data-fallback]').forEach(img => {
+    img.addEventListener('error', function() {
+      this.src = this.dataset.fallback;
+    });
+  });
+}
+
+/* ── WHATSAPP FORM SUBMIT ── */
+function submitToWhatsApp(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+
+  const name = form.querySelector('[data-field="name"]')?.value || '';
+  const phone = form.querySelector('[data-field="phone"]')?.value || '';
+  const interest = form.querySelector('[data-field="interest"]')?.value || '';
+
+  let msg = 'Olá! Quero agendar uma aula experimental gratuita.';
+  if (name) msg += `\nNome: ${name}`;
+  if (phone) msg += `\nWhatsApp: ${phone}`;
+  if (interest) msg += `\nInteresse: ${interest}`;
+
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://api.whatsapp.com/send?phone=5522981259080&text=${encoded}`, '_blank');
+}
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  counters.forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const duration = 1200;
+    const step = target / (duration / 16);
+
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current);
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  });
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  showPage('home');
+  initFAQ();
+  initNavScroll();
+  initImageFallback();
+
+  // Counter on stats visibility
+  const statsRow = document.querySelector('.stats-row');
+  if (statsRow) {
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateCounters();
+        obs.disconnect();
+      }
+    }, { threshold: 0.4 });
+    obs.observe(statsRow);
+  }
+});
