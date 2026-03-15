@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "outputDirectory": ".",
   "rewrites": [
     {
       "source": "/login",
-      "destination": "/public/login.html"
+      "destination": "/login.html"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/checkout.html"
     },
     {
       "source": "/aluno/((?!.*\\.html$).*)",

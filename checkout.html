@@ -223,7 +223,7 @@
         document.getElementById('mMsg').textContent='Sua conta foi criada. Acesse com o e-mail informado.';
         const btn=document.createElement('button'); btn.className='btn-modal';
         btn.textContent='Acessar minha conta →';
-        btn.onclick=()=>{ location.href='/public/login.html?cadastro=ok&email='+encodeURIComponent(extra); };
+        btn.onclick=()=>{ location.href='/login.html?cadastro=ok&email='+encodeURIComponent(extra); };
         modal.prepend(icon); modal.appendChild(btn);
       } else if(state==='recusado') {
         icon.textContent='❌';
