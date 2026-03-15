@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — NoPortuguese</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
+      --border: #222230; --accent: #7c5cfc; --accent2: #f59e0b;
+      --text: #f0f0f8; --muted: #6b6b80;
+      --error: #f87171; --success: #4ade80;
+      --radius: 12px;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); background: rgba(10,10,15,0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; text-decoration: none; color: var(--text); }
+    .logo span { color: var(--accent); }
+    .secure { font-size: 0.8rem; color: var(--muted); }
+
+    .wrap { display: flex; gap: 2.5rem; max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; flex-wrap: wrap; align-items: flex-start; }
+
+    /* RESUMO */
+    .summary { width: 100%; max-width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; position: sticky; top: 5rem; }
+    .summary h3 { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.2rem; }
+    .plan-name { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .plan-price { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin-bottom: 1rem; }
+    .plan-price small { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .plan-features { list-style: none; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .plan-features li { font-size: 0.85rem; color: var(--muted); padding: 0.3rem 0; display: flex; gap: 0.5rem; }
+    .plan-features li::before { content: "✓"; color: var(--success); }
+    .demo-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: var(--accent2); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.75rem; font-weight: 600; margin-top: 1rem; }
+
+    /* FORM */
+    .form-card { flex: 1; min-width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+    .form-card h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.8rem; }
+    .section-title { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.9rem; margin-top: 1.5rem; }
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--muted); margin-bottom: 0.4rem; }
+    input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; color: var(--text); font-size: 0.95rem; font-family: inherit; transition: border-color .2s; }
+    input:focus { outline: none; border-color: var(--accent); }
+    input::placeholder { color: var(--muted); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* Cartão visual */
+    .card-visual { background: linear-gradient(135deg, #1e1040 0%, #2d1b69 100%); border-radius: 14px; padding: 1.4rem 1.6rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; min-height: 130px; border: 1px solid rgba(124,92,252,0.3); }
+    .card-visual::before { content: ''; position: absolute; top: -40px; right: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(124,92,252,0.15); }
+    .card-chip { width: 36px; height: 26px; background: linear-gradient(135deg, #c9a84c, #f0d070); border-radius: 5px; margin-bottom: 1rem; }
+    .card-num-display { font-family: 'Courier New', monospace; font-size: 1.1rem; letter-spacing: 3px; color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .card-bottom { display: flex; justify-content: space-between; }
+    .card-lbl { font-size: 0.62rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem; }
+    .card-val { font-size: 0.85rem; color: rgba(255,255,255,0.9); }
+
+    /* Cartões de teste */
+    .test-cards { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
+    .test-title { font-size: 0.75rem; font-weight: 600; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.8rem; }
+    .test-item { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.4rem; border-bottom: 1px solid var(--border); cursor: pointer; border-radius: 4px; transition: background .15s; }
+    .test-item:last-child { border-bottom: none; }
+    .test-item:hover { background: rgba(124,92,252,0.08); }
+    .test-num { font-family: 'Courier New', monospace; font-size: 0.82rem; }
+    .ok { color: var(--success); font-size: 0.78rem; font-weight: 600; }
+    .fail { color: var(--error); font-size: 0.78rem; font-weight: 600; }
+    .warn { color: var(--accent2); font-size: 0.78rem; font-weight: 600; }
+
+    .btn-pay { width: 100%; background: var(--accent); color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity .2s, transform .2s; margin-top: 0.5rem; }
+    .btn-pay:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+    .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-msg { font-size: 0.82rem; margin-top: 0.8rem; text-align: center; min-height: 1rem; color: var(--error); }
+
+    /* MODAL */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; }
+    .overlay.on { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; max-width: 360px; width: 90%; text-align: center; }
+    .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .modal h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .modal p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .spinner { width: 48px; height: 48px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.2rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .prog-wrap { background: var(--border); border-radius: 999px; height: 4px; margin-top: 1.2rem; overflow: hidden; }
+    .prog-bar { height: 100%; background: var(--accent); border-radius: 999px; width: 0%; transition: width 0.3s ease; }
+    .btn-modal { margin-top: 1.5rem; background: var(--accent); color: #fff; border: none; padding: 0.8rem 2rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity .2s; }
+    .btn-modal:hover { opacity: 0.85; }
+    .btn-modal.danger { background: var(--error); }
+    .btn-modal.warn { background: var(--accent2); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/public/index.html" class="logo">No<span>Portuguese</span></a>
+  <span class="secure">🔒 Ambiente de demonstração</span>
+</nav>
+
+<div class="wrap">
+  <div class="summary">
+    <h3>Resumo do pedido</h3>
+    <div class="plan-name" id="planName">—</div>
+    <div class="plan-price" id="planPrice">—</div>
+    <ul class="plan-features" id="planFeatures"></ul>
+    <div class="demo-badge">⚡ Pagamento simulado</div>
+  </div>
+
+  <div class="form-card">
+    <h2>Finalizar assinatura</h2>
+
+    <div class="test-cards">
+      <div class="test-title">🧪 Cartões de teste — clique para preencher</div>
+      <div class="test-item" onclick="fillCard('4111111111111111','APROVADO TESTE','12/28','123')">
+        <span class="test-num">4111 1111 1111 1111</span>
+        <span class="ok">✓ Aprovado</span>
+      </div>
+      <div class="test-item" onclick="fillCard('4000000000000002','RECUSADO TESTE','12/28','123')">
+        <span class="test-num">4000 0000 0000 0002</span>
+        <span class="fail">✗ Recusado</span>
+      </div>
+      <div class="test-item" onclick="fillCard('4000000000000119','TIMEOUT TESTE','12/28','123')">
+        <span class="test-num">4000 0000 0000 0119</span>
+        <span class="warn">⏱ Timeout</span>
+      </div>
+    </div>
+
+    <div class="card-visual">
+      <div class="card-chip"></div>
+      <div class="card-num-display" id="cardDisp">•••• •••• •••• ••••</div>
+      <div class="card-bottom">
+        <div><div class="card-lbl">Nome</div><div class="card-val" id="nameDisp">NOME NO CARTÃO</div></div>
+        <div><div class="card-lbl">Validade</div><div class="card-val" id="expDisp">MM/AA</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">👤 Seus dados</div>
+    <div class="field"><label>Nome completo</label><input type="text" id="nome" placeholder="Seu nome completo" /></div>
+    <div class="field"><label>E-mail</label><input type="email" id="email" placeholder="email@exemplo.com" /></div>
+    <div class="field"><label>Crie uma senha</label><input type="password" id="senha" placeholder="Mínimo 6 caracteres" /></div>
+
+    <div class="section-title">💳 Cartão de crédito</div>
+    <div class="field"><label>Número do cartão</label><input type="text" id="cardNum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)" /></div>
+    <div class="field"><label>Nome no cartão</label><input type="text" id="cardName" placeholder="NOME COMO NO CARTÃO" oninput="document.getElementById('nameDisp').textContent=this.value.toUpperCase()||'NOME NO CARTÃO'" /></div>
+    <div class="row">
+      <div class="field"><label>Validade</label><input type="text" id="cardExp" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this)" /></div>
+      <div class="field"><label>CVV</label><input type="text" id="cardCvv" placeholder="123" maxlength="3" /></div>
+    </div>
+
+    <div class="form-msg" id="formMsg"></div>
+    <button class="btn-pay" id="btnPay" onclick="pagar()">🔒 Finalizar pagamento</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="spinner" id="spinner"></div>
+    <h3 id="mTitle">Processando...</h3>
+    <p id="mMsg">Aguarde enquanto confirmamos seu pagamento.</p>
+    <div class="prog-wrap" id="progWrap"><div class="prog-bar" id="progBar"></div></div>
+  </div>
+</div>
+
+<script>
+  const PLANOS = {
+    basico: { name:'Plano Básico', price:'R$ 47<small>/mês</small>', features:['Módulos 1 a 5','Áudio de cada aula','Progresso salvo','Suporte por e-mail'] },
+    premium: { name:'Plano Premium', price:'R$ 97<small>/mês</small>', features:['Todos os módulos (1–12)','Áudio + PDF','Exercícios com gabarito','Discord exclusivo','Novas aulas toda semana','Suporte prioritário'] },
+  };
+
+  const params  = new URLSearchParams(location.search);
+  const planoKey = params.get('plano') || 'premium';
+  const plano   = PLANOS[planoKey];
+
+  document.getElementById('planName').textContent  = plano.name;
+  document.getElementById('planPrice').innerHTML   = plano.price;
+  document.getElementById('planFeatures').innerHTML = plano.features.map(f=>`<li>${f}</li>`).join('');
+
+  // IDs dos planos no Supabase — atualize após criar os planos
+  const PLANO_IDS = { basico: '07cb598e-ab0e-480f-9ba3-c41d740a68dd', premium: 'ad309bd7-7f8f-457d-9adb-e7c84f5854c0' };
+
+  function fmtCard(el) {
+    let v = el.value.replace(/\D/g,'').slice(0,16);
+    el.value = v.replace(/(.{4})/g,'$1 ').trim();
+    document.getElementById('cardDisp').textContent = v.padEnd(16,'•').replace(/(.{4})/g,'$1 ').trim();
+  }
+  function fmtExp(el) {
+    let v = el.value.replace(/\D/g,'').slice(0,4);
+    if(v.length>=2) v = v.slice(0,2)+'/'+v.slice(2);
+    el.value = v;
+    document.getElementById('expDisp').textContent = v||'MM/AA';
+  }
+  function fillCard(num,name,exp,cvv) {
+    document.getElementById('cardNum').value  = num.replace(/(.{4})/g,'$1 ').trim();
+    document.getElementById('cardName').value = name;
+    document.getElementById('cardExp').value  = exp;
+    document.getElementById('cardCvv').value  = cvv;
+    document.getElementById('cardDisp').textContent  = num.replace(/(.{4})/g,'$1 ').trim();
+    document.getElementById('nameDisp').textContent  = name;
+    document.getElementById('expDisp').textContent   = exp;
+  }
+
+  function showModal(state, extra) {
+    const overlay = document.getElementById('overlay');
+    const spinner = document.getElementById('spinner');
+    const progWrap = document.getElementById('progWrap');
+    overlay.classList.add('on');
+
+    // Limpa botões antigos
+    overlay.querySelectorAll('.btn-modal').forEach(b=>b.remove());
+    overlay.querySelectorAll('.modal-icon').forEach(i=>i.remove());
+
+    if(state==='loading') {
+      spinner.style.display='block'; progWrap.style.display='block';
+      document.getElementById('mTitle').textContent='Processando pagamento...';
+      document.getElementById('mMsg').textContent='Aguarde enquanto confirmamos.';
+      animProg();
+    } else {
+      spinner.style.display='none'; progWrap.style.display='none';
+      const icon=document.createElement('div'); icon.className='modal-icon';
+      const modal=document.getElementById('modal');
+
+      if(state==='ok') {
+        icon.textContent='🎉';
+        document.getElementById('mTitle').textContent='Pagamento aprovado!';
+        document.getElementById('mMsg').textContent='Sua conta foi criada. Acesse com o e-mail informado.';
+        const btn=document.createElement('button'); btn.className='btn-modal';
+        btn.textContent='Acessar minha conta →';
+        btn.onclick=()=>{ location.href='/public/login.html?cadastro=ok&email='+encodeURIComponent(extra); };
+        modal.prepend(icon); modal.appendChild(btn);
+      } else if(state==='recusado') {
+        icon.textContent='❌';
+        document.getElementById('mTitle').textContent='Pagamento recusado';
+        document.getElementById('mMsg').textContent='Cartão não autorizado. Tente outro cartão.';
+        const btn=document.createElement('button'); btn.className='btn-modal danger';
+        btn.textContent='Tentar novamente';
+        btn.onclick=()=>{ overlay.classList.remove('on'); document.getElementById('btnPay').disabled=false; };
+        modal.prepend(icon); modal.appendChild(btn);
+      } else if(state==='timeout') {
+        icon.textContent='⏱';
+        document.getElementById('mTitle').textContent='Tempo esgotado';
+        document.getElementById('mMsg').textContent='A operadora não respondeu. Tente novamente.';
+        const btn=document.createElement('button'); btn.className='btn-modal warn';
+        btn.textContent='Tentar novamente';
+        btn.onclick=()=>{ overlay.classList.remove('on'); document.getElementById('btnPay').disabled=false; };
+        modal.prepend(icon); modal.appendChild(btn);
+      } else {
+        icon.textContent='⚠️';
+        document.getElementById('mTitle').textContent='Erro inesperado';
+        document.getElementById('mMsg').textContent=extra||'Tente novamente em instantes.';
+        const btn=document.createElement('button'); btn.className='btn-modal';
+        btn.textContent='Fechar';
+        btn.onclick=()=>{ overlay.classList.remove('on'); document.getElementById('btnPay').disabled=false; };
+        modal.prepend(icon); modal.appendChild(btn);
+      }
+    }
+  }
+
+  function animProg() {
+    const bar=document.getElementById('progBar'); let w=0;
+    const iv=setInterval(()=>{ w=Math.min(w+Math.random()*15,88); bar.style.width=w+'%'; if(w>=88)clearInterval(iv); },300);
+  }
+
+  async function pagar() {
+    const nome  = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const senha = document.getElementById('senha').value;
+    const num   = document.getElementById('cardNum').value.replace(/\s/g,'');
+    const name  = document.getElementById('cardName').value.trim();
+    const exp   = document.getElementById('cardExp').value.trim();
+    const cvv   = document.getElementById('cardCvv').value.trim();
+    const msg   = document.getElementById('formMsg');
+
+    msg.textContent='';
+    if(!nome||!email||!senha||!num||!name||!exp||!cvv) { msg.textContent='Preencha todos os campos.'; return; }
+    if(senha.length<6) { msg.textContent='A senha precisa ter pelo menos 6 caracteres.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent='E-mail inválido.'; return; }
+
+    document.getElementById('btnPay').disabled=true;
+    showModal('loading');
+
+    try {
+      const res  = await fetch('/api/checkout/simular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, senha, plano_id: PLANO_IDS[planoKey], numero_cartao: num }),
+      });
+      const data = await res.json();
+
+      document.getElementById('progBar').style.width='100%';
+      await new Promise(r=>setTimeout(r,400));
+
+      if(res.status===402) { showModal('recusado'); return; }
+      if(res.status===408) { showModal('timeout');  return; }
+      if(!res.ok)          { showModal('erro', data.error); return; }
+
+      showModal('ok', email);
+
+    } catch(e) {
+      showModal('erro','Erro de conexão. Tente novamente.');
+      document.getElementById('btnPay').disabled=false;
+    }
+  }
+</script>
+</body>
+</html>
