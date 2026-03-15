@@ -106,7 +106,11 @@ function initFAQ() {
 
 /* ── SCROLL REVEAL ── */
 function triggerReveal() {
-  const items = document.querySelectorAll('#page-' + getCurrentPage() + ' .reveal');
+  const currentPage = document.querySelector('.page.active');
+  if (!currentPage) return;
+
+  const items = currentPage.querySelectorAll('.reveal:not(.visible)');
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -114,9 +118,20 @@ function triggerReveal() {
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
   items.forEach(el => observer.observe(el));
+
+  // Força elementos já visíveis no viewport
+  setTimeout(() => {
+    items.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+  }, 120);
 }
 
 function getCurrentPage() {
@@ -184,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavScroll();
   initImageFallback();
 
-  // Counter on stats visibility
+  // Counter on stats visibility — trigger with low threshold and rootMargin
   const statsRow = document.querySelector('.stats-row');
   if (statsRow) {
     const obs = new IntersectionObserver((entries) => {
@@ -192,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateCounters();
         obs.disconnect();
       }
-    }, { threshold: 0.4 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     obs.observe(statsRow);
   }
 });
