@@ -109,29 +109,12 @@ function triggerReveal() {
   const currentPage = document.querySelector('.page.active');
   if (!currentPage) return;
 
-  const items = currentPage.querySelectorAll('.reveal:not(.visible)');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-
-  items.forEach(el => observer.observe(el));
-
-  // Força elementos já visíveis no viewport
-  setTimeout(() => {
-    items.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        el.classList.add('visible');
-        observer.unobserve(el);
-      }
-    });
-  }, 120);
+  currentPage.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 40) {
+      el.classList.add('visible');
+    }
+  });
 }
 
 function getCurrentPage() {
@@ -199,15 +182,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavScroll();
   initImageFallback();
 
-  // Counter on stats visibility — trigger with low threshold and rootMargin
-  const statsRow = document.querySelector('.stats-row');
-  if (statsRow) {
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        animateCounters();
-        obs.disconnect();
-      }
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    obs.observe(statsRow);
-  }
+  // Dispara contadores e reveal após a página carregar
+  setTimeout(() => {
+    animateCounters();
+    triggerReveal();
+  }, 300);
+
+  // Reveal contínuo no scroll
+  window.addEventListener('scroll', triggerReveal, { passive: true });
 });
