@@ -32,8 +32,13 @@ function showPage(name) {
   // Close mobile menu
   closeMobileMenu();
 
-  // Trigger scroll reveal
-  setTimeout(triggerReveal, 100);
+  // Trigger scroll reveal com polling
+  let count = 0;
+  const iv = setInterval(() => {
+    triggerReveal();
+    count++;
+    if (count >= 20) clearInterval(iv);
+  }, 100);
 }
 
 /* ── MOBILE MENU ── */
@@ -175,6 +180,19 @@ function animateCounters() {
   });
 }
 
+/* ── SCROLL REVEAL ── */
+function triggerReveal() {
+  const currentPage = document.querySelector('.page.active');
+  if (!currentPage) return;
+
+  currentPage.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 60) {
+      el.classList.add('visible');
+    }
+  });
+}
+
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
   showPage('home');
@@ -182,12 +200,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavScroll();
   initImageFallback();
 
-  // Dispara contadores e reveal após a página carregar
-  setTimeout(() => {
-    animateCounters();
-    triggerReveal();
-  }, 300);
+  // Dispara contadores imediatamente
+  setTimeout(animateCounters, 200);
 
-  // Reveal contínuo no scroll
+  // Polling do reveal nos primeiros 3s (garante que tudo aparece)
+  let attempts = 0;
+  const revealInterval = setInterval(() => {
+    triggerReveal();
+    attempts++;
+    if (attempts >= 30) clearInterval(revealInterval);
+  }, 100);
+
+  // Continua no scroll
   window.addEventListener('scroll', triggerReveal, { passive: true });
+  document.addEventListener('scroll', triggerReveal, { passive: true });
 });
