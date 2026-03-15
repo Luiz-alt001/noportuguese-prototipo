@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoPortuguese — Aprenda inglês do zero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="goTo('home')">NO<span>PORTUGUESE</span></div>
+  <ul class="nav-links">
+    <li><button onclick="goTo('home')" class="active" id="nl-home">Início</button></li>
+    <li><button onclick="goTo('cursos')" id="nl-cursos">Cursos</button></li>
+    <li><button onclick="goTo('metodo')" id="nl-metodo">Método</button></li>
+    <li><button onclick="goTo('sobre')" id="nl-sobre">Sobre</button></li>
+    <li><button onclick="goTo('contato')" id="nl-contato">Contato</button></li>
+    <li><button class="nav-portal" onclick="location.href='/login.html'">Portal do Aluno</button></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="goTo('home');toggleMenu()">Início</button>
+  <button onclick="goTo('cursos');toggleMenu()">Cursos</button>
+  <button onclick="goTo('metodo');toggleMenu()">Método</button>
+  <button onclick="goTo('sobre');toggleMenu()">Sobre</button>
+  <button onclick="goTo('contato');toggleMenu()">Contato</button>
+  <button class="m-portal" onclick="location.href='/login.html'">Portal do Aluno →</button>
+</div>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero-wrap">
+    <div class="hero-glow"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-inner">
+      <div class="hero-text-col">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Método exclusivo em português
+        </div>
+        <h1 class="hero-h1">INGLÊS<br /><span class="acc">SEM ENROLAÇÃO</span></h1>
+        <p class="hero-desc">Do zero ao fluente com um método direto, prático e pensado para brasileiros que têm pouco tempo — mas querem resultado de verdade.</p>
+        <div class="hero-pills">
+          <span class="pill"><span class="pill-dot"></span>Aulas ao vivo</span>
+          <span class="pill"><span class="pill-dot"></span>Sessões VIP 1 a 1</span>
+          <span class="pill"><span class="pill-dot"></span>Comunidade ativa</span>
+        </div>
+        <div class="hero-ctas">
+          <button class="btn-y" onclick="goTo('cursos')">Ver planos e preços →</button>
+          <button class="btn-outline" onclick="goTo('metodo')">Como funciona</button>
+        </div>
+      </div>
+      <div class="hero-form-col">
+        <div class="form-card">
+          <div class="form-card-title">Comece <span>hoje</span></div>
+          <p class="form-card-sub">Preencha abaixo e acesse imediatamente após o pagamento.</p>
+          <div class="fg"><label>Seu nome</label><input type="text" placeholder="Nome completo" /></div>
+          <div class="fg"><label>E-mail</label><input type="email" placeholder="email@exemplo.com" /></div>
+          <div class="fg">
+            <label>Escolha seu plano</label>
+            <select>
+              <option>Básico — R$ 47/mês</option>
+              <option selected>Premium — R$ 97/mês</option>
+            </select>
+          </div>
+          <button class="btn-form" onclick="irCheckout()">Quero começar agora →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-row reveal">
+    <div class="stat"><div class="stat-n">2<span class="stat-u">k+</span></div><div class="stat-l">Alunos formados</div></div>
+    <div class="stat"><div class="stat-n">4<span class="stat-u">.9</span></div><div class="stat-l">Avaliação média</div></div>
+    <div class="stat"><div class="stat-n">12<span class="stat-u">+</span></div><div class="stat-l">Módulos completos</div></div>
+    <div class="stat"><div class="stat-n">3<span class="stat-u">x</span></div><div class="stat-l">Mais rápido que escola</div></div>
+  </div>
+
+  <!-- WHY -->
+  <section class="section-wrap" style="background:var(--d)">
+    <div class="why-grid">
+      <div>
+        <div class="section-tag reveal">Por que funciona</div>
+        <h2 class="section-title reveal reveal-delay-1">UM MÉTODO <span class="acc">CRIADO POR</span> QUEM JÁ ENSINOU MAIS DE 2000 ALUNOS</h2>
+        <div class="statement-note reveal reveal-delay-2" style="margin-top:28px">
+          <p>Nada de app genérico. Nada de tradução palavra por palavra. <strong>O NoPortuguese foi desenvolvido do zero pensando em como o brasileiro aprende — e onde trava.</strong></p>
+        </div>
+      </div>
+      <div class="why-cards">
+        <div class="why-card reveal">
+          <div class="why-icon">🎯</div>
+          <div class="why-body"><h3>Direto ao ponto</h3><p>Sem exercícios inúteis. Cada aula tem um objetivo claro e aplicação imediata no mundo real.</p></div>
+        </div>
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon">🧠</div>
+          <div class="why-body"><h3>Pensado em português</h3><p>As explicações partem do que você já sabe. Sem comparações forçadas com outras línguas.</p></div>
+        </div>
+        <div class="why-card reveal reveal-delay-2">
+          <div class="why-icon">🔁</div>
+          <div class="why-body"><h3>Revisão inteligente</h3><p>O sistema identifica onde você trava e reforça automaticamente os pontos mais difíceis.</p></div>
+        </div>
+        <div class="why-card reveal reveal-delay-3">
+          <div class="why-icon">🎙️</div>
+          <div class="why-body"><h3>Foco em fala e escuta</h3><p>Pronúncia e listening desde a aula 1 — porque inglês é para ser falado, não só lido.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES PREVIEW -->
+  <section class="section-wrap" style="background:var(--b)">
+    <div class="section-tag reveal">Nossos cursos</div>
+    <h2 class="section-title reveal reveal-delay-1">ESCOLHA SEU <span class="acc">IDIOMA</span></h2>
+    <div class="home-courses-grid" style="margin-top:48px">
+      <div class="home-course-card hc-en reveal" onclick="goTo('cursos')">
+        <span class="hc-flag">🇺🇸</span>
+        <div class="hc-title">INGLÊS</div>
+        <p class="hc-desc">Do iniciante ao avançado. Pronúncia, gramática, conversação e cultura americana em um único método progressivo.</p>
+        <span class="hc-link">Ver o curso →</span>
+      </div>
+      <div class="home-course-card hc-es reveal reveal-delay-1" onclick="goTo('cursos')">
+        <span class="hc-flag">🇪🇸</span>
+        <div class="hc-title">ESPANHOL</div>
+        <p class="hc-desc">Em breve. Lista de espera aberta — seja o primeiro a saber quando lançarmos o método para o espanhol.</p>
+        <span class="hc-link" style="color:var(--red)">Entrar na lista →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-wrap">
+    <div class="section-tag reveal">Depoimentos</div>
+    <h2 class="section-title reveal reveal-delay-1">O QUE NOSSOS <span class="acc">ALUNOS</span> DIZEM</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Em 3 meses consegui me comunicar em inglês no trabalho. Nunca tinha conseguido em 2 anos de escola."</p>
+        <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Ana Paula M.</div><div class="testi-role">Analista de Marketing · SP</div></div></div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"O método faz sentido pra quem é brasileiro. Finalmente entendi os tempos verbais que me travavam há anos."</p>
+        <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Carlos R.</div><div class="testi-role">Desenvolvedor · MG</div></div></div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Fiz a sessão VIP antes de uma entrevista de emprego e passei. Melhor investimento que fiz esse ano."</p>
+        <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Fernanda T.</div><div class="testi-role">Gerente Comercial · RJ</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="corp-strip reveal">
+    <div class="corp-text">
+      <h2>PRONTO PARA COMEÇAR?</h2>
+      <p>Acesso imediato após a assinatura. Cancele quando quiser. Sem fidelidade.</p>
+    </div>
+    <button class="btn-dark" onclick="irCheckout()">Assinar agora →</button>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-wrap">
+    <div class="section-tag reveal" style="display:block;text-align:center">Dúvidas frequentes</div>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center">PERGUNTAS <span class="acc">FREQUENTES</span></h2>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso ter alguma base de inglês?<div class="faq-icon">+</div></div><div class="faq-a"><p>Não. O curso começa do absoluto zero. Se você não sabe nem o alfabeto em inglês, está no lugar certo.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quanto tempo preciso dedicar por dia?<div class="faq-icon">+</div></div><div class="faq-a"><p>O mínimo recomendado é 20 minutos por dia. Com consistência, você verá resultados em 30 dias.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso cancelar a qualquer momento?<div class="faq-icon">+</div></div><div class="faq-a"><p>Sim. Sem fidelidade, sem multa. Cancele quando quiser diretamente pela área do aluno.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que é a sessão VIP?<div class="faq-icon">+</div></div><div class="faq-a"><p>É uma aula ao vivo 1 a 1 com a professora. Disponível no plano Premium para tirar dúvidas e praticar conversação.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Tenho acesso imediato após o pagamento?<div class="faq-icon">+</div></div><div class="faq-a"><p>Sim. Assim que o pagamento for aprovado sua conta é criada automaticamente e você já pode acessar todo o conteúdo.</p></div></div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════ CURSOS ═══════════════ -->
+<div class="page" id="page-cursos">
+  <section class="courses-page-hero">
+    <div class="courses-page-hero-bg"></div>
+    <div class="section-tag">Nossos planos</div>
+    <h1 class="section-title">ESCOLHA SEU <span class="acc">PLANO</span></h1>
+    <p>Acesso imediato após o pagamento. Cancele quando quiser.</p>
+    <div class="lang-tabs">
+      <button class="lang-tab active-en" onclick="setLang('en', this)">🇺🇸 Inglês</button>
+      <button class="lang-tab" onclick="setLang('es', this)">🇪🇸 Espanhol (em breve)</button>
+    </div>
+  </section>
+
+  <div class="course-panel en active" id="panel-en">
+    <div class="course-main-grid">
+      <div>
+        <span class="course-flag">🇺🇸</span>
+        <h2 class="course-big-title">INGLÊS</h2>
+        <p class="course-desc">Do iniciante ao avançado. Pronúncia, gramática, conversação e cultura americana em um único método progressivo e pensado para brasileiros.</p>
+        <ul class="course-feats">
+          <li><div class="feat-check">✓</div>12 módulos completos</li>
+          <li><div class="feat-check">✓</div>Áudio em todas as aulas</li>
+          <li><div class="feat-check">✓</div>PDFs e exercícios com gabarito</li>
+          <li><div class="feat-check">✓</div>Aulas ao vivo mensais</li>
+          <li><div class="feat-check">✓</div>Sessões VIP 1 a 1 (Premium)</li>
+          <li><div class="feat-check">✓</div>Comunidade no Discord (Premium)</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- PLANO BÁSICO -->
+        <div style="background:var(--d2);border:1px solid #222;border-radius:16px;padding:36px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:12px">Plano Básico</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--w);line-height:1">R$ 47<span style="font-size:22px;color:var(--g)">/mês</span></div>
+          <ul style="list-style:none;margin:20px 0 28px;display:flex;flex-direction:column;gap:10px">
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Módulos 1 a 5 (Fundamentos)</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Áudio de cada aula</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Progresso salvo na nuvem</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Suporte por e-mail</li>
+          </ul>
+          <button class="btn-outline" style="width:100%;justify-content:center" onclick="location.href='/checkout.html?plano=basico'">Assinar Básico →</button>
+        </div>
+
+        <!-- PLANO PREMIUM -->
+        <div style="background:linear-gradient(135deg,#1a1a00,#111);border:1px solid rgba(255,229,0,.25);border-radius:16px;padding:36px;position:relative">
+          <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--y);color:var(--b);font-size:10px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap">Mais popular</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--y);margin-bottom:12px">Plano Premium</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--y);line-height:1">R$ 97<span style="font-size:22px;color:var(--g)">/mês</span></div>
+          <ul style="list-style:none;margin:20px 0 28px;display:flex;flex-direction:column;gap:10px">
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Todos os módulos (1 a 12)</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Áudio + PDF de cada aula</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Exercícios com gabarito</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Sessões VIP 1 a 1</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Discord exclusivo</li>
+            <li style="font-size:14px;color:rgba(242,242,242,.7);display:flex;gap:10px"><span style="color:var(--y)">✓</span>Novas aulas toda semana</li>
+          </ul>
+          <button class="btn-y" style="width:100%;justify-content:center" onclick="location.href='/checkout.html?plano=premium'">Assinar Premium →</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="levels-grid">
+      <div class="level-card en"><div class="level-icon">🌱</div><div class="level-name">Iniciante</div><p class="level-desc">Do absoluto zero. Pronúncia, alfabeto, saudações e presente simples.</p></div>
+      <div class="level-card en"><div class="level-icon">📈</div><div class="level-name">Intermediário</div><p class="level-desc">Tempos verbais, vocabulário essencial e conversação do dia a dia.</p></div>
+      <div class="level-card en"><div class="level-icon">🚀</div><div class="level-name">Avançado</div><p class="level-desc">Fluência, expressões idiomáticas, escrita e cultura americana.</p></div>
+    </div>
+  </div>
+
+  <div class="course-panel es" id="panel-es">
+    <div style="text-align:center;padding:100px 56px">
+      <span style="font-size:72px;display:block;margin-bottom:24px">🇪🇸</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--red)">EM BREVE</h2>
+      <p style="color:var(--g);font-size:16px;margin-top:16px;max-width:480px;margin-inline:auto;line-height:1.7">O curso de espanhol está em desenvolvimento. Entre na lista de espera e seja o primeiro a saber quando lançarmos.</p>
+      <button class="btn-red" style="margin-top:32px" onclick="goTo('contato')">Entrar na lista →</button>
+    </div>
+  </div>
+</div><!-- /page-cursos -->
+
+
+<!-- ═══════════════ MÉTODO ═══════════════ -->
+<div class="page" id="page-metodo">
+  <section class="method-hero">
+    <div class="method-hero-glow"></div>
+    <div class="section-tag">Como funciona</div>
+    <h1 class="section-title">O MÉTODO <span class="acc">NOPORTUGUESE</span></h1>
+    <p>Um sistema desenvolvido para o jeito brasileiro de aprender — sem decoreba, sem tradução forçada, sem frustração.</p>
+  </section>
+
+  <div class="timeline-wrap">
+    <h2 class="section-title reveal" style="text-align:center">SUA JORNADA <span class="acc">PASSO A PASSO</span></h2>
+    <div class="tl-items">
+      <div class="tl-item reveal"><div class="tl-dot">1</div><div class="tl-body"><h3>Diagnóstico inicial</h3><p>Você faz uma avaliação rápida para identificar seu nível e onde estão seus maiores pontos de trava.</p></div></div>
+      <div class="tl-item reveal reveal-delay-1"><div class="tl-dot">2</div><div class="tl-body"><h3>Trilha personalizada</h3><p>Com base no diagnóstico, o sistema monta sua trilha de módulos na ordem mais eficiente para você.</p></div></div>
+      <div class="tl-item reveal reveal-delay-2"><div class="tl-dot">3</div><div class="tl-body"><h3>Aulas em vídeo + áudio</h3><p>Cada aula dura entre 6 e 15 minutos. Assista no seu ritmo, onde e quando quiser.</p></div></div>
+      <div class="tl-item reveal reveal-delay-3"><div class="tl-dot">4</div><div class="tl-body"><h3>Exercícios e revisão</h3><p>Após cada módulo, exercícios práticos reforçam o conteúdo. O sistema identifica o que precisa de mais atenção.</p></div></div>
+      <div class="tl-item reveal reveal-delay-4"><div class="tl-dot">5</div><div class="tl-body"><h3>Sessão VIP (Premium)</h3><p>Agende uma sessão ao vivo com a professora para praticar conversação e tirar dúvidas em tempo real.</p></div></div>
+    </div>
+  </div>
+
+  <div class="pillars-wrap">
+    <div class="section-tag reveal" style="display:block;text-align:center">Os pilares</div>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center">4 PILARES DO <span class="acc">MÉTODO</span></h2>
+    <div class="pillars-grid">
+      <div class="pillar reveal"><div class="pillar-icon">👂</div><h3>Escuta ativa</h3><p>Treino intensivo de listening com áudios reais desde a primeira aula.</p></div>
+      <div class="pillar reveal reveal-delay-1"><div class="pillar-icon">🗣️</div><h3>Fala sem medo</h3><p>Técnicas para superar o bloqueio de falar em inglês — o maior obstáculo dos brasileiros.</p></div>
+      <div class="pillar reveal reveal-delay-2"><div class="pillar-icon">📖</div><h3>Gramática aplicada</h3><p>Regras ensinadas em contexto real, não em listas de memorização.</p></div>
+      <div class="pillar reveal reveal-delay-3"><div class="pillar-icon">🔄</div><h3>Revisão espaçada</h3><p>Sistema de repetição que garante que o conteúdo fique na memória de longo prazo.</p></div>
+    </div>
+  </div>
+
+  <div class="corp-strip reveal">
+    <div class="corp-text"><h2>PRONTO PARA COMEÇAR?</h2><p>Acesso imediato. Cancele quando quiser.</p></div>
+    <button class="btn-dark" onclick="irCheckout()">Ver planos →</button>
+  </div>
+</div><!-- /page-metodo -->
+
+
+<!-- ═══════════════ SOBRE ═══════════════ -->
+<div class="page" id="page-sobre">
+  <section class="about-hero">
+    <div class="about-hero-grid">
+      <div>
+        <div class="about-label">Nossa história</div>
+        <h1 class="about-h">INGLÊS DO <span class="acc">JEITO CERTO</span></h1>
+        <p class="about-p">O NoPortuguese nasceu da frustração de ver brasileiros gastando anos em cursos que não funcionam — métodos copiados de países que falam inglês como segunda língua desde crianças.</p>
+        <p class="about-p">Criamos um método próprio, testado com mais de 2.000 alunos, que parte do zero e respeita como o brasileiro pensa e aprende.</p>
+      </div>
+      <div class="np-badge">
+        <div class="np-badge-logo">NP</div>
+        <div class="np-badge-label">NoPortuguese Idiomas</div>
+        <div class="np-badge-since"><strong>Fundado em 2021</strong>Mais de 2.000 alunos formados</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-values-grid">
+    <div class="val-card reveal"><div class="val-icon">🎯</div><h3>Resultado real</h3><p>Nossa métrica de sucesso é simples: o aluno consegue se comunicar em inglês. Não é diploma — é fluência.</p></div>
+    <div class="val-card reveal reveal-delay-1"><div class="val-icon">🇧🇷</div><h3>Feito para o brasileiro</h3><p>Cada explicação parte do que você já sabe em português. Zero jargão técnico desnecessário.</p></div>
+    <div class="val-card reveal reveal-delay-2"><div class="val-icon">⚡</div><h3>Sem enrolação</h3><p>Aulas diretas, objetivas e sem rodeios. Seu tempo é valioso — cada minuto conta.</p></div>
+    <div class="val-card reveal reveal-delay-3"><div class="val-icon">🤝</div><h3>Comunidade ativa</h3><p>Aprender sozinho é mais difícil. Por isso nossos alunos Premium têm acesso a uma comunidade de suporte no Discord.</p></div>
+  </div>
+
+  <div class="founder-wrap">
+    <h2 class="section-title reveal" style="margin-bottom:48px">QUEM ESTÁ <span class="acc">POR TRÁS</span></h2>
+    <div class="founder-card reveal">
+      <div class="founder-avatar-big">👩‍🏫</div>
+      <div>
+        <div class="founder-label">Fundadora</div>
+        <div class="founder-name">PAULINI</div>
+        <div class="founder-title">Professora de inglês · Fundadora do NoPortuguese</div>
+        <p class="founder-bio">Professora de inglês com mais de 10 anos de experiência. Desenvolveu o método NoPortuguese após perceber que os materiais disponíveis no mercado não respeitavam as particularidades do aprendizado do brasileiro. Hoje ensina inglês online para alunos de todo o Brasil.</p>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-sobre -->
+
+
+<!-- ═══════════════ CONTATO ═══════════════ -->
+<div class="page" id="page-contato">
+  <section class="contact-hero">
+    <div class="section-tag">Fale conosco</div>
+    <h1 class="section-title">ENTRE EM <span class="acc">CONTATO</span></h1>
+  </section>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>ESTAMOS <span class="acc">AQUI</span> PARA AJUDAR</h2>
+      <p>Tem dúvidas sobre os planos, o método ou quer falar antes de assinar? Entre em contato pelos canais abaixo.</p>
+      <div class="cinfo-items">
+        <a class="cinfo-item" href="https://wa.me/5511999999999" target="_blank">
+          <div class="cinfo-icon">💬</div>
+          <div class="cinfo-texts"><strong>WhatsApp</strong><span>Resposta em até 2h</span></div>
+        </a>
+        <a class="cinfo-item" href="mailto:contato@noportuguese.com.br">
+          <div class="cinfo-icon">✉️</div>
+          <div class="cinfo-texts"><strong>E-mail</strong><span>contato@noportuguese.com.br</span></div>
+        </a>
+        <a class="cinfo-item" href="https://instagram.com/noportuguese" target="_blank">
+          <div class="cinfo-icon">📸</div>
+          <div class="cinfo-texts"><strong>Instagram</strong><span>@noportuguese</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrap">
+      <h3>Envie uma <span>mensagem</span></h3>
+      <p>Responderemos em até 24 horas úteis.</p>
+      <div class="fg"><label>Nome</label><input type="text" placeholder="Seu nome completo" /></div>
+      <div class="fg"><label>E-mail</label><input type="email" placeholder="email@exemplo.com" /></div>
+      <div class="fg">
+        <label>Assunto</label>
+        <select>
+          <option>Dúvida sobre planos</option>
+          <option>Suporte técnico</option>
+          <option>Parceria</option>
+          <option>Lista de espera — Espanhol</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="fg"><label>Mensagem</label><textarea placeholder="Escreva sua mensagem..."></textarea></div>
+      <button class="btn-form" onclick="enviarContato(this)">Enviar mensagem →</button>
+    </div>
+  </div>
+</div><!-- /page-contato -->
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <span class="f-brand-logo">NO<span>PORTUGUESE</span></span>
+      <p>Método exclusivo de inglês desenvolvido para brasileiros. Do zero ao fluente, sem enrolação.</p>
+    </div>
+    <div class="f-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><button onclick="goTo('home')">Início</button></li>
+        <li><button onclick="goTo('cursos')">Cursos</button></li>
+        <li><button onclick="goTo('metodo')">Método</button></li>
+        <li><button onclick="goTo('sobre')">Sobre</button></li>
+        <li><button onclick="goTo('contato')">Contato</button></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Acesso</h4>
+      <ul>
+        <li><a href="/login.html">Portal do Aluno</a></li>
+        <li><a href="/checkout.html?plano=premium">Assinar Premium</a></li>
+        <li><a href="/checkout.html?plano=basico">Assinar Básico</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2025 NoPortuguese Idiomas. Todos os direitos reservados.</span>
+    <span>Desenvolvido com ❤️ para brasileiros</span>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a class="wa-float" href="https://wa.me/5511999999999" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script src="main.js"></script>
+</body>
+</html>
